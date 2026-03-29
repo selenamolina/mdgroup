@@ -22,6 +22,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+const inputClass =
+  "w-full border border-border rounded-md px-4 py-2.5 text-sm text-slate focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition bg-white";
+
 function StarRating({
   value,
   onChange,
@@ -44,11 +47,11 @@ function StarRating({
           aria-label={`${star} estrella${star > 1 ? "s" : ""}`}
         >
           <Star
-            size={30}
+            size={28}
             className={`transition-colors ${
               star <= (hovered || value)
-                ? "fill-gold text-gold"
-                : "text-gray-300"
+                ? "fill-accent text-accent"
+                : "text-border"
             }`}
           />
         </button>
@@ -77,15 +80,15 @@ export default function SatisfactionForm() {
   if (enviado) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
-        <CheckCircle size={52} className="text-green-500" />
-        <h3 className="text-xl font-bold text-navy">¡Gracias por su opinión!</h3>
-        <p className="text-gray-500 max-w-sm text-sm">
+        <CheckCircle size={44} className="text-accent" />
+        <h3 className="text-xl font-semibold text-slate">¡Gracias por su opinión!</h3>
+        <p className="text-slate-light max-w-sm text-sm">
           Su feedback es muy valioso para nosotros. Nos ayuda a mejorar la calidad de
           nuestros servicios.
         </p>
         <button
           onClick={() => setEnviado(false)}
-          className="mt-2 text-sm text-gold font-medium hover:underline"
+          className="mt-2 text-sm text-accent font-medium hover:underline"
         >
           Completar otra encuesta
         </button>
@@ -97,20 +100,20 @@ export default function SatisfactionForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-xl mx-auto" noValidate>
       {/* Nombre (opcional) */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          Nombre <span className="text-gray-400 font-normal">(opcional)</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          Nombre <span className="text-slate-light font-normal normal-case">(opcional)</span>
         </label>
         <input
           {...register("nombre")}
           placeholder="Su nombre..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+          className={inputClass}
         />
       </div>
 
       {/* Calificación con estrellas */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-2">
-          ¿Cómo calificaría la atención recibida? <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-2">
+          ¿Cómo calificaría la atención recibida? <span className="text-red-400">*</span>
         </label>
         <Controller
           name="calificacion"
@@ -123,28 +126,28 @@ export default function SatisfactionForm() {
           )}
         />
         {errors.calificacion && (
-          <p className="text-red-500 text-xs mt-1">{errors.calificacion.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.calificacion.message}</p>
         )}
       </div>
 
       {/* Claridad */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-2">
-          ¿La información brindada fue clara y comprensible? <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-2">
+          ¿La información brindada fue clara y comprensible? <span className="text-red-400">*</span>
         </label>
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-4 flex-wrap">
           {(["si", "parcialmente", "no"] as const).map((opcion) => {
             const etiquetas = { si: "Sí", parcialmente: "Parcialmente", no: "No" };
             return (
               <label
                 key={opcion}
-                className="flex items-center gap-2 cursor-pointer text-sm font-medium"
+                className="flex items-center gap-2 cursor-pointer text-sm text-slate-mid"
               >
                 <input
                   type="radio"
                   value={opcion}
                   {...register("claridad")}
-                  className="accent-navy w-4 h-4"
+                  className="accent-accent w-4 h-4"
                 />
                 {etiquetas[opcion]}
               </label>
@@ -152,28 +155,28 @@ export default function SatisfactionForm() {
           })}
         </div>
         {errors.claridad && (
-          <p className="text-red-500 text-xs mt-1">{errors.claridad.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.claridad.message}</p>
         )}
       </div>
 
       {/* Volvería */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-2">
-          ¿Volvería a consultar con nosotros? <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-2">
+          ¿Volvería a consultar con nosotros? <span className="text-red-400">*</span>
         </label>
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-4 flex-wrap">
           {(["si", "no", "quizas"] as const).map((opcion) => {
             const etiquetas = { si: "Sí", no: "No", quizas: "Quizás" };
             return (
               <label
                 key={opcion}
-                className="flex items-center gap-2 cursor-pointer text-sm font-medium"
+                className="flex items-center gap-2 cursor-pointer text-sm text-slate-mid"
               >
                 <input
                   type="radio"
                   value={opcion}
                   {...register("volveria")}
-                  className="accent-navy w-4 h-4"
+                  className="accent-accent w-4 h-4"
                 />
                 {etiquetas[opcion]}
               </label>
@@ -181,19 +184,19 @@ export default function SatisfactionForm() {
           })}
         </div>
         {errors.volveria && (
-          <p className="text-red-500 text-xs mt-1">{errors.volveria.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.volveria.message}</p>
         )}
       </div>
 
       {/* Servicio */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          ¿En qué servicio fue atendido? <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          ¿En qué servicio fue atendido? <span className="text-red-400">*</span>
         </label>
         <select
           {...register("servicio")}
           defaultValue=""
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition bg-white"
+          className={inputClass}
         >
           <option value="" disabled>
             Seleccioná un servicio...
@@ -205,27 +208,27 @@ export default function SatisfactionForm() {
           ))}
         </select>
         {errors.servicio && (
-          <p className="text-red-500 text-xs mt-1">{errors.servicio.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.servicio.message}</p>
         )}
       </div>
 
       {/* Sugerencias */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          Sugerencias o comentarios <span className="text-gray-400 font-normal">(opcional)</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          Sugerencias o comentarios <span className="text-slate-light font-normal normal-case">(opcional)</span>
         </label>
         <textarea
           {...register("sugerencias")}
           rows={4}
           placeholder="Comparta sus sugerencias o comentarios..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition resize-none"
+          className={inputClass + " resize-none"}
         />
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-navy text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 hover:bg-navy-light transition disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full bg-accent text-white font-medium py-3 px-6 rounded-md flex items-center justify-center hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <span className="text-sm">Enviando...</span>
