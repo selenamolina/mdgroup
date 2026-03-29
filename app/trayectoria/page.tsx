@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Eye, History, MapPin } from "lucide-react";
+import { Target, Eye, MapPin } from "lucide-react";
 import { historia, mision, vision, empresa } from "@/lib/data";
 
 const hitos = [
@@ -12,24 +12,31 @@ const hitos = [
   { anio: "2025", hecho: "Incorporación de herramientas digitales para gestión remota de clientes." },
 ];
 
+const valores = [
+  { valor: "Profesionalismo" },
+  { valor: "Integridad" },
+  { valor: "Compromiso" },
+  { valor: "Innovación" },
+];
+
 export default function TrayectoriaPage() {
   return (
     <div>
       {/* ─── Encabezado ─────────────────────────────────────────── */}
-      <section className="bg-navy text-white py-14">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <section className="bg-white border-b border-border py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
           >
-            <span className="text-gold text-xs font-semibold uppercase tracking-widest">
+            <span className="text-slate-light text-xs font-medium uppercase tracking-widest">
               Quiénes somos
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
+            <h1 className="text-4xl md:text-5xl font-light tracking-tight text-slate mt-3 mb-4">
               Trayectoria y Valores
             </h1>
-            <p className="text-gray-300 text-base max-w-xl mx-auto">
+            <p className="text-slate-light text-base max-w-xl">
               Desde {empresa.fundacion} construyendo confianza con las PyMEs y emprendedores del NOA.
             </p>
           </motion.div>
@@ -37,111 +44,96 @@ export default function TrayectoriaPage() {
       </section>
 
       {/* ─── Historia ───────────────────────────────────────────── */}
-      <section className="py-14 max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-9 h-9 rounded-lg bg-navy flex items-center justify-center">
-            <History size={18} className="text-gold" />
-          </div>
-          <h2 className="text-xl font-bold text-navy">Nuestra Historia</h2>
-        </div>
-        <p className="text-gray-600 leading-relaxed mb-10 text-base">{historia}</p>
+      <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate mb-6">Nuestra Historia</h2>
+        <p className="text-slate-mid leading-relaxed mb-12">{historia}</p>
 
         {/* Timeline */}
-        <div className="relative pl-6 border-l-2 border-gray-200 space-y-8">
+        <div className="relative pl-6 border-l border-slate-200 space-y-10">
           {hitos.map((h, i) => (
             <motion.div
               key={h.anio}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -12 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08, duration: 0.35, ease: "easeOut" }}
               className="relative"
             >
-              <span className="absolute -left-[1.65rem] top-1 w-5 h-5 rounded-full bg-gold border-2 border-white block" />
-              <p className="text-gold font-bold text-sm mb-0.5">{h.anio}</p>
-              <p className="text-gray-600 text-sm">{h.hecho}</p>
+              <span className="absolute -left-[1.65rem] top-1 w-4 h-4 rounded-full bg-accent border-2 border-white block" />
+              <p className="font-mono text-xs text-slate-light mb-1 tracking-wider">{h.anio}</p>
+              <p className="text-slate-mid text-sm leading-relaxed">{h.hecho}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* ─── Misión & Visión ─────────────────────────────────────── */}
-      <section className="bg-gray-50 py-14">
+      <section className="bg-surface border-y border-border py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Misión */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm"
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="bg-white rounded-xl p-7 border border-border"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-navy flex items-center justify-center">
-                  <Target size={18} className="text-gold" />
-                </div>
-                <h2 className="text-lg font-bold text-navy">Misión</h2>
+                <Target size={18} className="text-accent" />
+                <h2 className="text-lg font-semibold text-slate">Misión</h2>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">{mision}</p>
+              <p className="text-slate-mid text-sm leading-relaxed">{mision}</p>
             </motion.div>
 
             {/* Visión */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-navy rounded-2xl p-7 shadow-sm"
+              transition={{ duration: 0.35, delay: 0.08, ease: "easeOut" }}
+              className="bg-slate rounded-xl p-7"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gold flex items-center justify-center">
-                  <Eye size={18} className="text-navy" />
-                </div>
-                <h2 className="text-lg font-bold text-white">Visión</h2>
+                <Eye size={18} className="text-white" />
+                <h2 className="text-lg font-semibold text-white">Visión</h2>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed">{vision}</p>
+              <p className="text-slate-light text-sm leading-relaxed">{vision}</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ─── Valores ────────────────────────────────────────────── */}
-      <section className="py-14 max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 className="text-xl font-bold text-navy mb-8 text-center">Nuestros Valores</h2>
+      <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate mb-8 text-center">
+          Nuestros Valores
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { valor: "Profesionalismo", emoji: "🎯" },
-            { valor: "Integridad", emoji: "⚖️" },
-            { valor: "Compromiso", emoji: "🤝" },
-            { valor: "Innovación", emoji: "💡" },
-          ].map((v, i) => (
+          {valores.map((v, i) => (
             <motion.div
               key={v.valor}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="bg-white border-2 border-gray-100 hover:border-gold rounded-xl p-5 text-center transition-colors"
+              transition={{ delay: i * 0.08, duration: 0.35, ease: "easeOut" }}
+              className="bg-white border border-border hover:border-slate-300 rounded-xl p-6 text-center transition-all duration-200"
             >
-              <p className="text-2xl mb-2">{v.emoji}</p>
-              <p className="text-navy font-semibold text-sm">{v.valor}</p>
+              <p className="text-slate font-medium text-sm">{v.valor}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* ─── Mapa ──────────────────────────────────────────────── */}
-      <section className="bg-gray-50 py-14">
+      <section className="bg-surface border-t border-border py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-9 h-9 rounded-lg bg-navy flex items-center justify-center">
-              <MapPin size={18} className="text-gold" />
-            </div>
-            <h2 className="text-xl font-bold text-navy">Nuestra Ubicación</h2>
+          <div className="flex items-center gap-2 mb-2">
+            <MapPin size={16} className="text-slate-light" />
+            <h2 className="text-xl font-semibold tracking-tight text-slate">Nuestra Ubicación</h2>
           </div>
-          <p className="text-gray-500 text-sm mb-5">{empresa.direccion}</p>
-          <div className="rounded-2xl overflow-hidden shadow-md border border-gray-200">
+          <p className="text-slate-light text-sm mb-6">{empresa.direccion}</p>
+          <div className="rounded-xl overflow-hidden border border-border">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115267.34611963888!2d-65.5310849!3d-24.7821276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94122716de6ecbdb%3A0x7fbe8e78b40e4c!2sSalta%2C%20Salta!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar"
               width="100%"

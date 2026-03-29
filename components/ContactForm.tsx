@@ -19,6 +19,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+const inputClass =
+  "w-full border border-border rounded-md px-4 py-2.5 text-sm text-slate focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition bg-white";
+
 export default function ContactForm() {
   const [enviado, setEnviado] = useState(false);
 
@@ -30,7 +33,6 @@ export default function ContactForm() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (_data: FormData) => {
-    // Simulación de envío (sin backend real)
     await new Promise((r) => setTimeout(r, 800));
     setEnviado(true);
     reset();
@@ -39,15 +41,15 @@ export default function ContactForm() {
   if (enviado) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
-        <CheckCircle size={52} className="text-green-500" />
-        <h3 className="text-xl font-bold text-navy">¡Consulta recibida!</h3>
-        <p className="text-gray-500 max-w-sm text-sm">
+        <CheckCircle size={44} className="text-accent" />
+        <h3 className="text-xl font-semibold text-slate">¡Consulta recibida!</h3>
+        <p className="text-slate-light max-w-sm text-sm">
           Gracias por escribirnos. Un profesional de MD Group se pondrá en contacto
           con usted a la brevedad.
         </p>
         <button
           onClick={() => setEnviado(false)}
-          className="mt-2 text-sm text-gold font-medium hover:underline"
+          className="mt-2 text-sm text-accent font-medium hover:underline"
         >
           Enviar otra consulta
         </button>
@@ -59,57 +61,57 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 max-w-xl mx-auto" noValidate>
       {/* Nombre */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          Nombre y apellido <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          Nombre y apellido <span className="text-red-400">*</span>
         </label>
         <input
           {...register("nombre")}
           placeholder="Ej: Juan García"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+          className={inputClass}
         />
         {errors.nombre && (
-          <p className="text-red-500 text-xs mt-1">{errors.nombre.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.nombre.message}</p>
         )}
       </div>
 
       {/* Email */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          Email <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          Email <span className="text-red-400">*</span>
         </label>
         <input
           {...register("email")}
           type="email"
           placeholder="ejemplo@correo.com"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+          className={inputClass}
         />
         {errors.email && (
-          <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
         )}
       </div>
 
       {/* Teléfono (opcional) */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          Teléfono <span className="text-gray-400 font-normal">(opcional)</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          Teléfono <span className="text-slate-light font-normal normal-case">(opcional)</span>
         </label>
         <input
           {...register("telefono")}
           type="tel"
           placeholder="+54 387 400-0000"
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+          className={inputClass}
         />
       </div>
 
       {/* Tipo de consulta */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          Tipo de consulta <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          Tipo de consulta <span className="text-red-400">*</span>
         </label>
         <select
           {...register("tipo")}
           defaultValue=""
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition bg-white"
+          className={inputClass}
         >
           <option value="" disabled>
             Seleccioná una opción...
@@ -121,30 +123,30 @@ export default function ContactForm() {
           ))}
         </select>
         {errors.tipo && (
-          <p className="text-red-500 text-xs mt-1">{errors.tipo.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.tipo.message}</p>
         )}
       </div>
 
       {/* Mensaje */}
       <div>
-        <label className="block text-sm font-medium text-navy mb-1">
-          Mensaje <span className="text-red-500">*</span>
+        <label className="block text-xs font-medium text-slate-light uppercase tracking-wider mb-1.5">
+          Mensaje <span className="text-red-400">*</span>
         </label>
         <textarea
           {...register("mensaje")}
           rows={5}
           placeholder="Describa brevemente su consulta..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition resize-none"
+          className={inputClass + " resize-none"}
         />
         {errors.mensaje && (
-          <p className="text-red-500 text-xs mt-1">{errors.mensaje.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.mensaje.message}</p>
         )}
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-navy text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 hover:bg-navy-light transition disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full bg-accent text-white font-medium py-3 px-6 rounded-md flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <span className="text-sm">Enviando...</span>

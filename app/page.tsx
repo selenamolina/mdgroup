@@ -2,10 +2,16 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Shield, Award, Users } from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Award, Users } from "lucide-react";
 import Organigrama from "@/components/Organigrama";
 import ServiceCard from "@/components/ServiceCard";
 import { empresa, servicios } from "@/lib/data";
+
+const fadeUp = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.35, ease: "easeOut" as const },
+} as const;
 
 const stats = [
   { valor: `${empresa.fundacion}`, etiqueta: "Año de fundación" },
@@ -39,34 +45,32 @@ export default function HomePage() {
   return (
     <div>
       {/* ─── Hero ────────────────────────────────────────────────────── */}
-      <section className="bg-navy text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      <section className="bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeUp}
             className="max-w-3xl"
           >
-            <span className="inline-block text-gold text-sm font-semibold uppercase tracking-widest mb-4">
+            <span className="inline-block text-slate-light text-xs font-medium uppercase tracking-widest mb-6">
               Estudio Contable · Salta, NOA
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-5">
-              Tu estudio contable <br className="hidden md:block" />
-              <span className="text-gold">de confianza</span> en el NOA
+            <h1 className="text-5xl md:text-6xl font-light tracking-tight text-slate leading-tight mb-6">
+              Tu estudio contable<br />
+              de confianza en el NOA
             </h1>
-            <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
+            <p className="text-slate-light text-lg leading-relaxed mb-10 max-w-2xl">
               {empresa.descripcion}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/contacto"
-                className="inline-flex items-center gap-2 bg-gold text-navy font-semibold px-6 py-3 rounded-lg hover:bg-gold-light transition"
+                className="inline-flex items-center gap-2 bg-accent text-white font-medium px-6 py-3 rounded-md hover:bg-blue-700 transition-colors"
               >
                 Consultar ahora <ArrowRight size={16} />
               </Link>
               <Link
                 href="/servicios"
-                className="inline-flex items-center gap-2 border border-gray-500 text-gray-200 px-6 py-3 rounded-lg hover:bg-navy-light hover:border-gray-400 transition"
+                className="inline-flex items-center gap-2 border border-border text-slate-mid px-6 py-3 rounded-md hover:border-slate-300 hover:text-slate transition-colors"
               >
                 Ver servicios
               </Link>
@@ -76,18 +80,18 @@ export default function HomePage() {
       </section>
 
       {/* ─── Stats ───────────────────────────────────────────────────── */}
-      <section className="bg-navy-dark">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="bg-surface border-y border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((s, i) => (
               <motion.div
                 key={s.etiqueta}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i + 0.3 }}
+                transition={{ delay: 0.08 * i + 0.15, duration: 0.35, ease: "easeOut" }}
               >
-                <p className="text-gold text-3xl font-bold">{s.valor}</p>
-                <p className="text-gray-400 text-xs mt-1 uppercase tracking-wider">
+                <p className="text-5xl font-light text-slate tracking-tight">{s.valor}</p>
+                <p className="text-slate-light text-xs mt-2 uppercase tracking-widest">
                   {s.etiqueta}
                 </p>
               </motion.div>
@@ -97,10 +101,15 @@ export default function HomePage() {
       </section>
 
       {/* ─── Servicios (preview) ─────────────────────────────────────── */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-navy">Nuestros Servicios</h2>
-          <p className="text-gray-500 mt-2 text-sm max-w-xl mx-auto">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="mb-12">
+          <span className="text-slate-light text-xs font-medium uppercase tracking-widest">
+            Lo que hacemos
+          </span>
+          <h2 className="text-4xl font-semibold tracking-tight text-slate mt-3">
+            Nuestros Servicios
+          </h2>
+          <p className="text-slate-light mt-3 max-w-xl">
             Cubrimos todas las áreas que su empresa o emprendimiento necesita
           </p>
         </div>
@@ -109,10 +118,10 @@ export default function HomePage() {
             <ServiceCard key={s.id} servicio={s} index={i} />
           ))}
         </div>
-        <div className="text-center mt-8">
+        <div className="mt-10">
           <Link
             href="/servicios"
-            className="inline-flex items-center gap-2 text-navy font-semibold text-sm hover:text-gold transition"
+            className="inline-flex items-center gap-2 text-accent font-medium text-sm hover:underline transition"
           >
             Ver detalle completo de servicios <ArrowRight size={14} />
           </Link>
@@ -120,31 +129,42 @@ export default function HomePage() {
       </section>
 
       {/* ─── Pilares ─────────────────────────────────────────────────── */}
-      <section className="bg-gray-50 py-14">
+      <section className="bg-surface border-y border-border py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-navy">¿Por qué elegirnos?</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {pilares.map((p, i) => {
-              const Icon = p.icono;
-              return (
-                <motion.div
-                  key={p.titulo}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm text-center"
-                >
-                  <div className="w-12 h-12 rounded-full bg-navy flex items-center justify-center mx-auto mb-4">
-                    <Icon size={22} className="text-gold" />
-                  </div>
-                  <h3 className="font-bold text-navy mb-2">{p.titulo}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{p.texto}</p>
-                </motion.div>
-              );
-            })}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+            <div>
+              <span className="text-slate-light text-xs font-medium uppercase tracking-widest">
+                Por qué elegirnos
+              </span>
+              <h2 className="text-4xl font-semibold tracking-tight text-slate mt-3 mb-4">
+                Claridad, calidad<br />y cercanía
+              </h2>
+              <p className="text-slate-light leading-relaxed">
+                Cada cliente que confía en MD Group recibe atención personalizada,
+                respuestas claras y un equipo comprometido con su tranquilidad fiscal.
+              </p>
+            </div>
+            <div className="space-y-6">
+              {pilares.map((p, i) => {
+                const Icon = p.icono;
+                return (
+                  <motion.div
+                    key={p.titulo}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08, duration: 0.35, ease: "easeOut" }}
+                    className="flex items-start gap-4"
+                  >
+                    <CheckCircle size={20} className="text-accent shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-slate">{p.titulo}</p>
+                      <p className="text-slate-light text-sm leading-relaxed mt-1">{p.texto}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -153,17 +173,17 @@ export default function HomePage() {
       <Organigrama />
 
       {/* ─── CTA Final ───────────────────────────────────────────────── */}
-      <section className="bg-navy text-white py-14">
+      <section className="bg-slate text-white py-20">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
             ¿Listo para ordenar su situación fiscal?
           </h2>
-          <p className="text-gray-300 text-sm mb-7">
+          <p className="text-slate-light text-base mb-8">
             Contáctenos hoy y le brindaremos una primera consulta sin costo.
           </p>
           <Link
             href="/contacto"
-            className="inline-flex items-center gap-2 bg-gold text-navy font-semibold px-7 py-3 rounded-lg hover:bg-gold-light transition"
+            className="inline-flex items-center gap-2 bg-accent text-white font-medium px-7 py-3 rounded-md hover:bg-blue-700 transition-colors"
           >
             Contactar ahora <ArrowRight size={16} />
           </Link>

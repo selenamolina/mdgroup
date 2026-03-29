@@ -11,16 +11,13 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-navy shadow-md sticky top-0 z-50">
+    <header className="bg-white/90 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-50">
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
-            <div className="w-9 h-9 rounded-md bg-gold flex items-center justify-center">
-              <span className="text-navy font-bold text-sm tracking-tight">MD</span>
-            </div>
-            <span className="text-white font-semibold text-lg tracking-wide">
-              MD<span className="text-gold"> Group</span>
+          <Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
+            <span className="text-slate font-bold text-lg tracking-tight">
+              MD <span className="font-light">Group</span>
             </span>
           </Link>
 
@@ -30,10 +27,10 @@ export default function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-md text-sm transition-colors ${
                     pathname === link.href
-                      ? "bg-gold text-navy"
-                      : "text-gray-300 hover:text-white hover:bg-navy-light"
+                      ? "text-slate font-medium"
+                      : "text-slate-mid hover:text-slate"
                   }`}
                 >
                   {link.label}
@@ -44,7 +41,7 @@ export default function Navbar() {
 
           {/* Mobile burger */}
           <button
-            className="md:hidden text-gray-300 hover:text-white p-2 rounded-md"
+            className="md:hidden text-slate-mid hover:text-slate p-2 rounded-md"
             onClick={() => setOpen(!open)}
             aria-label="Menú"
           >
@@ -60,10 +57,10 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`block px-4 py-2 rounded-md text-sm transition-colors ${
                     pathname === link.href
-                      ? "bg-gold text-navy"
-                      : "text-gray-300 hover:text-white hover:bg-navy-light"
+                      ? "text-slate font-medium"
+                      : "text-slate-mid hover:text-slate"
                   }`}
                 >
                   {link.label}
