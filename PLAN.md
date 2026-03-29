@@ -141,21 +141,140 @@ transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
 
 ---
 
-## Orden de implementación
+## Estado de implementación
 
-1. **globals.css** — nueva paleta de tokens de color
-2. **Navbar** — simplificar, quitar colores, agregar blur
-3. **Homepage hero** — reescribir layout y tipografía
-4. **Service Cards** — unificar colores, limpiar íconos
-5. **Stats section** — rediseñar con tipografía grande
-6. **Footer** — simplificar estructura
-7. **Servicios page** — aplicar sistema a todas las cards
-8. **Trayectoria page** — limpiar timeline y secciones
-9. **Contacto page** — refinar formulario
-10. **Animaciones** — ajustar en todos los componentes al final
+| Tarea | Estado |
+|-------|--------|
+| globals.css — nueva paleta de tokens | ✅ Hecho |
+| Navbar — blur, sin colores, links limpios | ✅ Hecho |
+| Homepage hero — tipografía grande, font-light | ✅ Hecho |
+| Service Cards — íconos sin fondo de color, unified | ✅ Hecho |
+| Stats section — números grandes, font-light | ✅ Hecho |
+| Footer — 3 columnas, bg-slate | ✅ Hecho |
+| Servicios page — sistema aplicado | ✅ Hecho |
+| Trayectoria page — timeline limpio | ✅ Hecho |
+| Contacto page — formulario refinado | ✅ Hecho |
+| Animaciones — duración 0.35s, y:12 | ✅ Hecho |
+
+---
+
+## Próximas mejoras (ronda 2)
+
+### 1. Navbar — botón CTA "Contactar"
+Agregar un botón `bg-accent text-white` al lado derecho del nav en desktop.
+Apple siempre tiene un CTA visible en la barra de navegación.
+
+### 2. Navbar — indicador de página activa
+Reemplazar el `font-medium` actual por una línea inferior (`border-b-2 border-slate`) debajo del link activo. Más claro y elegante.
+
+### 3. Hero — elemento visual de fondo
+Agregar un número decorativo grande (ej: `+80` o `2018`) en gris muy claro como fondo del hero. Le da profundidad sin ruido visual.
+
+### 4. Bug — CTA final, texto invisible
+El párrafo del CTA final usa `text-slate-light` sobre `bg-slate` oscuro → casi invisible.
+Cambiar a `text-white/60`.
+
+### 5. Organigrama — avatares más grandes
+Aumentar de `w-16 h-16` a `w-24 h-24`. Iniciales más grandes (`text-2xl`). Se ven mucho más elegantes y dan más presencia a las personas.
+
+### 6. Menú mobile — animación suave
+El menú aparece/desaparece sin transición. Agregar `AnimatePresence` + `motion.ul` con fade+slide para que sea fluido.
+
+---
+
+---
+
+## Ronda 3 — Innovación visual (sin perder seriedad)
+
+**Referencia:** Linear, Stripe, Vercel — sitios técnicos y serios que usan efectos de luz y profundidad para verse modernos sin ser llamativos.
+
+**Regla de oro:** cada efecto debe ser sutil. Si al verlo decís "qué lindo efecto", está bien. Si decís "qué recargado", hay que bajarlo.
+
+---
+
+### 1. Hero — fondo con gradiente radial y grid de puntos
+Agregar detrás del texto del hero:
+- Un grid de puntos muy tenues (`bg-dot-slate/5`) como fondo base
+- Un gradiente radial azul/índigo muy difuminado en la esquina superior derecha (como Linear)
+- Efecto: da sensación de profundidad y modernidad sin distraer del contenido
+
+```css
+/* background pattern */
+background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+background-size: 24px 24px;
+
+/* radial glow */
+background: radial-gradient(ellipse 80% 50% at 70% -10%, rgba(29,78,216,0.08), transparent);
+```
+
+---
+
+### 2. Stats — números con contador animado
+Los números (2018, +80, 4, NOA) aparecen contando desde 0 al entrar en viewport.
+Usar `useEffect` + `requestAnimationFrame` o la lib `react-countup`.
+Efecto: da vida a los datos sin ningún efecto visual extra.
+
+---
+
+### 3. Service Cards — borde con gradiente en hover
+Al hacer hover en una card, el borde se ilumina con un gradiente sutil azul/transparente.
+Técnica: pseudo-elemento `::before` con `background: linear-gradient(...)` y `opacity` animado.
+Efecto: las cards "responden" al usuario de forma elegante.
+
+---
+
+### 4. CTA final — efecto de luz (glow) sobre fondo oscuro
+La sección oscura del CTA (`bg-slate`) lleva un orbe de luz difuminado detrás del título:
+- Un círculo `bg-accent/10` muy grande y `blur-3xl` centrado detrás del texto
+- Completamente estático, sin animación
+Efecto: el texto parece iluminado desde adentro, como en los sitios de Vercel o Stripe.
+
+---
+
+### 5. Navbar — línea de progreso de scroll
+Una barra delgada (2px) `bg-accent` que crece horizontalmente en la parte superior de la página según el progreso de scroll.
+Efecto: feedback visual moderno, muy usado en blogs y sitios tech serios.
+
+---
+
+### 6. Texto del hero — reveal por línea
+Las líneas del título principal aparecen una por una con un clip-path animado (como si se "descorriera" una cortina).
+Técnica: `clipPath: "inset(0 0 100% 0)"` → `"inset(0 0 0% 0)"` con stagger.
+Efecto: entrada poderosa y memorable. Lo que hace Apple en sus keynotes.
+
+---
+
+### 7. Sección de pilares — icono con glow suave
+Los íconos de Shield, Award y Users llevan un `drop-shadow` azul muy sutil al hacer hover.
+```css
+filter: drop-shadow(0 0 8px rgba(29,78,216,0.3))
+```
+Efecto: los íconos "brillan" levemente al pasar el mouse.
+
+---
+
+### 8. Footer — separador con gradiente
+La línea divisora superior del footer pasa de un borde sólido a un gradiente:
+`transparent → accent/30 → transparent`
+Efecto: un detalle de lujo que separa el contenido del footer con elegancia.
+
+---
+
+### Prioridad de implementación (ronda 3)
+
+| # | Mejora | Impacto visual | Complejidad |
+|---|--------|---------------|-------------|
+| 1 | Grid de puntos + glow en hero | Alto | Bajo |
+| 2 | Contador animado en stats | Alto | Bajo |
+| 4 | Orbe de luz en CTA oscuro | Alto | Bajo |
+| 6 | Reveal por línea en título | Muy alto | Medio |
+| 3 | Borde gradiente en cards | Medio | Medio |
+| 5 | Barra de progreso de scroll | Medio | Bajo |
+| 7 | Glow en íconos de pilares | Bajo | Bajo |
+| 8 | Separador gradiente en footer | Bajo | Bajo |
 
 ---
 
 ## Resultado esperado
 
-Un sitio que al abrirlo transmita: **claridad, confianza, seriedad**. Que el cliente potencial sienta que está en manos de profesionales ordenados y modernos — no en una landing genérica de plantilla.
+Un sitio que al abrirlo transmita: **claridad, confianza, seriedad** — y que además diga que esta firma usa tecnología moderna y piensa en los detalles. Que el cliente potencial sienta que está ante profesionales que están un paso adelante.
