@@ -135,7 +135,7 @@ export default function TrayectoriaPage() {
           <p className="text-slate-light text-sm mb-6">{empresa.direccion}</p>
           <div className="rounded-xl overflow-hidden border border-border">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115267.34611963888!2d-65.5310849!3d-24.7821276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94122716de6ecbdb%3A0x7fbe8e78b40e4c!2sSalta%2C%20Salta!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar"
+              src="https://www.google.com/maps?q=Av.+Bicentenario+de+la+Batalla+de+Salta+1560+Oficina+7,+Salta+Capital,+Salta,+Argentina&output=embed"
               width="100%"
               height="380"
               style={{ border: 0 }}

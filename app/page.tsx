@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Shield, Award, Users } from "lucide-react";
@@ -13,10 +14,55 @@ const fadeUp = {
   transition: { duration: 0.35, ease: "easeOut" as const },
 } as const;
 
-const stats = [
-  { valor: `${empresa.fundacion}`, etiqueta: "Año de fundación" },
-  { valor: `+${empresa.clientes}`, etiqueta: "Clientes activos" },
-  { valor: "4", etiqueta: "Áreas de servicio" },
+function AnimatedNumber({
+  target,
+  active,
+  prefix = "",
+  suffix = "",
+}: {
+  target: number | string;
+  active: boolean;
+  prefix?: string;
+  suffix?: string;
+}) {
+  const [value, setValue] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    if (!active) return;
+    if (typeof target !== "number") return;
+
+    let raf = 0;
+    const duration = 600;
+    const start = performance.now();
+
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      setValue(Math.round(progress * target));
+      if (progress < 1) raf = requestAnimationFrame(step);
+    };
+
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [active, target]);
+
+  if (typeof target !== "number") {
+    return <>{target}</>;
+  }
+
+  return <>{prefix}{value}{suffix}</>;
+}
+
+type StatItem = {
+  valor: number | string;
+  prefijo?: string;
+  sufijo?: string;
+  etiqueta: string;
+};
+
+const stats: StatItem[] = [
+  { valor: empresa.fundacion, etiqueta: "Año de fundación" },
+  { valor: empresa.clientes, prefijo: "+", etiqueta: "Clientes activos" },
+  { valor: 4, etiqueta: "Áreas de servicio" },
   { valor: "NOA", etiqueta: "Cobertura regional" },
 ];
 
@@ -42,11 +88,18 @@ const pilares = [
 ];
 
 export default function HomePage() {
+  const [statsInView, setStatsInView] = React.useState(false);
+
   return (
     <div>
       {/* ─── Hero ────────────────────────────────────────────────────── */}
-      <section className="bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <section className="bg-white relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_70%_-10%,rgba(29,78,216,0.08),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle,_#e2e8f0_1px,_transparent_1px)] bg-[length:24px_24px] opacity-30" />
+          <div className="absolute right-6 top-10 text-9xl md:text-[12rem] font-bold text-slate-light/10 select-none leading-none">+80</div>
+        </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 relative z-10">
           <motion.div
             {...fadeUp}
             className="max-w-3xl"
@@ -87,10 +140,19 @@ export default function HomePage() {
               <motion.div
                 key={s.etiqueta}
                 initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                onViewportEnter={() => setStatsInView(true)}
                 transition={{ delay: 0.08 * i + 0.15, duration: 0.35, ease: "easeOut" }}
               >
-                <p className="text-5xl font-light text-slate tracking-tight">{s.valor}</p>
+                <p className="text-5xl font-light text-slate tracking-tight">
+                  <AnimatedNumber
+                    target={s.valor}
+                    active={statsInView}
+                    prefix={s.prefijo ?? ""}
+                    suffix={s.sufijo ?? ""}
+                  />
+                </p>
                 <p className="text-slate-light text-xs mt-2 uppercase tracking-widest">
                   {s.etiqueta}
                 </p>
@@ -178,7 +240,7 @@ export default function HomePage() {
           <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
             ¿Listo para ordenar su situación fiscal?
           </h2>
-          <p className="text-slate-light text-base mb-8">
+          <p className="text-white/60 text-base mb-8">
             Contáctenos hoy y le brindaremos una primera consulta sin costo.
           </p>
           <Link

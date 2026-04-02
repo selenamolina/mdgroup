@@ -39,45 +39,6 @@ export default function ServiciosPage() {
         </div>
       </section>
 
-      {/* ─── Servicio foco ───────────────────────────────────────── */}
-      <section className="bg-surface border-y border-border py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="bg-slate rounded-xl p-8 md:p-10 text-white">
-            <span className="text-white/40 text-xs font-mono tracking-widest">01</span>
-            <h2 className="text-2xl font-semibold tracking-tight mt-3 mb-3">
-              Asesoramiento y Gestión Impositiva
-            </h2>
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
-              El incumplimiento impositivo puede generar multas, intereses y hasta el cierre del
-              negocio. En MD Group tomamos el control total de sus obligaciones fiscales para que
-              usted no tenga sorpresas. Planificamos su carga tributaria de forma legal y estratégica,
-              maximizando el aprovechamiento de deducciones y beneficios vigentes.
-            </p>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-white/60 mb-8">
-              {[
-                "IVA mensual (DF / CF)",
-                "Ganancias personas jurídicas y físicas",
-                "Bienes Personales",
-                "Ingresos Brutos (CM / jurisdicciones)",
-                "Impuesto a los Débitos y Créditos",
-                "Tasas municipales y provinciales",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-accent shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/contacto"
-              className="inline-flex items-center gap-2 bg-accent text-white font-medium px-6 py-2.5 rounded-md hover:bg-blue-700 transition-colors text-sm"
-            >
-              Consultá este servicio <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* ─── CTA ────────────────────────────────────────────────── */}
       <section className="py-16 max-w-3xl mx-auto px-4 text-center">
         <h2 className="text-2xl font-semibold tracking-tight text-slate mb-3">

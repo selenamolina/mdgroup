@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import type { Servicio } from "@/lib/data";
 
 type Props = {
@@ -17,13 +19,15 @@ export default function ServiceCard({ servicio, index }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay: index * 0.08, ease: "easeOut" }}
-      className="bg-white border border-border rounded-xl p-7 hover:shadow-sm hover:border-slate-300 transition-all duration-200 flex flex-col gap-4"
+      className="group relative"
     >
-      {/* Número + Ícono */}
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-mono text-slate-light tracking-widest">{servicio.numero}</span>
-        <Icon size={18} className="text-slate-light" />
-      </div>
+      <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 bg-gradient-to-r from-blue-100/30 via-transparent to-blue-100/30" />
+      <div className="relative bg-white border border-border rounded-xl p-7 hover:shadow-sm hover:border-slate-300 transition-all duration-200 flex flex-col gap-4">
+        {/* Número + Ícono */}
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-mono text-slate-light tracking-widest">{servicio.numero}</span>
+          <Icon size={18} className="text-slate-mid" />
+        </div>
 
       {/* Título */}
       <h3 className="text-slate font-medium text-base leading-tight">{servicio.titulo}</h3>
@@ -35,6 +39,15 @@ export default function ServiceCard({ servicio, index }: Props) {
       <p className="text-xs text-slate-mid italic mt-auto border-t border-border pt-4">
         "{servicio.tagline}"
       </p>
+
+      {/* Botón */}
+      <Link
+        href="/contacto"
+        className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline mt-2"
+      >
+        Consultá este servicio <ArrowRight size={14} />
+      </Link>
+      </div>
     </motion.div>
   );
 }

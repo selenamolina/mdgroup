@@ -10,7 +10,7 @@ export const empresa = {
     "Brindamos soluciones contables, impositivas y laborales integrales a PyMEs y emprendedores de la región NOA. Acompañamos a nuestros clientes en cada etapa de su crecimiento con profesionalismo, claridad y compromiso.",
   email: "contacto@mdgroup.com.ar",
   telefono: "+54 387 400-0000",
-  direccion: "Salta Capital, Salta, Argentina",
+  direccion: "Av. Bicentenario de la Batalla de Salta 1560, Oficina 7, Salta Capital, Salta, Argentina",
   ciudad: "Salta, Argentina",
   fundacion: 2018,
   clientes: 80,
@@ -46,7 +46,7 @@ export const equipo: Integrante[] = [
   },
   {
     nombre: "Eusebio",
-    rol: "Contador Senior",
+    rol: "Socio Gerente",
     descripcion:
       "A cargo de la gestión técnica contable e impositiva. Especializado en liquidación de impuestos, estados financieros y asesoría laboral.",
     iniciales: "E",

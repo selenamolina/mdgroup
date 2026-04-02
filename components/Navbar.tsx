@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { navLinks } from "@/lib/data";
 
 export default function Navbar() {
@@ -22,22 +23,34 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`px-4 py-2 rounded-md text-sm transition-colors ${
-                    pathname === link.href
-                      ? "text-slate font-medium"
-                      : "text-slate-mid hover:text-slate"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="hidden md:flex items-center gap-3">
+            <ul className="flex items-center gap-1">
+              {navLinks.map((link) => (
+                <li key={link.href} className="relative">
+                  <Link
+                    href={link.href}
+                    className={`px-4 py-2 rounded-md text-sm transition-colors ${
+                      pathname === link.href
+                        ? "text-slate font-medium"
+                        : "text-slate-mid hover:text-slate"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                  {pathname === link.href && (
+                    <span className="absolute left-1/2 bottom-0 -translate-x-1/2 h-0.5 w-8 bg-slate" />
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/contacto"
+              className="px-5 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-blue-700 transition-colors"
+            >
+              Contactar
+            </Link>
+          </div>
 
           {/* Mobile burger */}
           <button
@@ -50,25 +63,42 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu */}
-        {open && (
-          <ul className="md:hidden pb-4 flex flex-col gap-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+        <AnimatePresence>
+          {open && (
+            <motion.ul
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="md:hidden pb-4 flex flex-col gap-1"
+            >
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={`block px-4 py-2 rounded-md text-sm transition-colors ${
+                      pathname === link.href
+                        ? "text-slate font-medium"
+                        : "text-slate-mid hover:text-slate"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
                 <Link
-                  href={link.href}
+                  href="/contacto"
                   onClick={() => setOpen(false)}
-                  className={`block px-4 py-2 rounded-md text-sm transition-colors ${
-                    pathname === link.href
-                      ? "text-slate font-medium"
-                      : "text-slate-mid hover:text-slate"
-                  }`}
+                  className="block px-4 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-blue-700 transition-colors"
                 >
-                  {link.label}
+                  Contactar
                 </Link>
               </li>
-            ))}
-          </ul>
-        )}
+            </motion.ul>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );

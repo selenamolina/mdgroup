@@ -30,8 +30,8 @@ export default function Organigrama() {
               className="flex flex-col items-center text-center p-8 hover:scale-[1.02] transition-transform duration-200 w-full sm:w-64"
             >
               {/* Avatar circular */}
-              <div className="w-16 h-16 rounded-full bg-surface border border-border flex items-center justify-center mb-4">
-                <span className="text-slate font-semibold text-lg">
+              <div className="w-24 h-24 rounded-full bg-surface border border-border flex items-center justify-center mb-4">
+                <span className="text-slate font-semibold text-2xl">
                   {integrante.iniciales}
                 </span>
               </div>
