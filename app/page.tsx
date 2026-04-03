@@ -77,7 +77,7 @@ const pilares = [
     icono: Award,
     titulo: "Calidad técnica",
     texto:
-      "Profesionales actualizados en normativa AFIP, Rentas y legislación laboral vigente.",
+      "Profesionales actualizados en normativa ARCA, Rentas y legislación laboral vigente.",
   },
   {
     icono: Users,
